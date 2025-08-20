@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المرصد المساعد لخدمات الأعمال - RSG Assam</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #e7e8eb;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #c4282a;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 8px 32px rgba(196, 40, 42, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            background: #f899bb;
+            color: #c4282a;
+        }
+
+        /* Page Container */
+        .page {
+            display: block;
+        }
+
+        .page.hidden {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #ffffff;
+            color: #333;
+            padding: 120px 0 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            color: #c4282a;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #c4282a;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(196, 40, 42, 0.4);
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            background: #f899bb;
+            color: #c4282a;
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 40px 0 80px;
+            background: #e7e8eb;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #c4282a;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(196, 40, 42, 0.15);
+            transition: all 0.3s ease;
+            border: 2px solid #f899bb;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(196, 40, 42, 0.25);
+            border: 2px solid #c4282a;
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: #c4282a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 8px 25px rgba(196, 40, 42, 0.4);
+        }
+
+        .service-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            color: #c4282a;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-features {
+            list-style: none;
+        }
+
+        .about-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            color: #5a6c7d;
+            font-weight: 500;
+        }
+
+        .about-features i {
+            color: #f899bb;
+            width: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(196, 40, 42, 0.15);
+            border: 1px solid #f899bb;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(196, 40, 42, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #c4282a;
+            display: block;
+        }
+
+        .stat-label {
+            color: #5a6c7d;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: #c4282a;
+            color: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h2 {
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            color: #f899bb;
+        }
+
+        .contact-info p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #c4282a;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(248, 153, 187, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #f899bb;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #ffffff;
+            color: #c4282a;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #f899bb;
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Footer */
+        footer {
+            background: #c4282a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #f899bb;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #f899bb;
+            transform: translateY(-2px) scale(1.1);
+        }
+
+        /* Subpages */
+        .subpage {
+            padding: 80px 0;
+            background: #ffffff;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #c4282a;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #f899bb;
+            color: #c4282a;
+        }
+
+        .subpage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .subpage-card {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(196, 40, 42, 0.15);
+            border: 2px solid #f899bb;
+        }
+
+        .subpage-card-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .subpage-icon {
+            width: 80px;
+            height: 80px;
+            background: #c4282a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .subpage-card h3 {
+            color: #c4282a;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subpage-list {
+            list-style: none;
+            text-align: right;
+        }
+
+        .subpage-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .subpage-list i {
+            color: #f899bb;
+        }
+
+        .highlight-section {
+            background: linear-gradient(135deg, #c4282a, #f899bb);
+            padding: 3rem;
+            border-radius: 25px;
+            text-align: center;
+            margin-top: 4rem;
+            color: white;
+        }
+
+        .highlight-section h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .highlight-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #c4282a;
+            padding: 1rem 0;
+            border: 1px solid #f899bb;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mobile-menu a:hover {
+            background: #f899bb;
+            color: #c4282a;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: relative;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .subpage-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-btn {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 50px; height: auto; object-fit: contain;">
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('main')">الرئيسية</a></li>
+                <li><a onclick="scrollToSection('services')">خدماتنا</a></li>
+                <li><a onclick="scrollToSection('about')">من نحن</a></li>
+                <li><a onclick="scrollToSection('contact')">اتصل بنا</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="mobile-menu" id="mobileMenu">
+                <a onclick="showPage('main'); closeMobileMenu();">الرئيسية</a>
+                <a onclick="scrollToSection('services'); closeMobileMenu();">خدماتنا</a>
+                <a onclick="scrollToSection('about'); closeMobileMenu();">من نحن</a>
+                <a onclick="scrollToSection('contact'); closeMobileMenu();">اتصل بنا</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Page -->
+    <div id="main-page" class="page">
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 300px; height: auto; object-fit: contain; margin: 3rem auto 2rem; display: block;">
+                    <p>Your trusted partner in developing and managing business with innovative and specialized solutions</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>خدماتنا</h2>
+                    <p>نقدم مجموعة شاملة من الخدمات المتخصصة لتلبية احتياجات عملك وتحقيق أهدافك</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>الخدمات العقارية</h3>
+                        <p>خدمات شاملة في مجال العقارات تشمل الاستشارات العقارية، التقييم، والإدارة العقارية المتخصصة</p>
+                    </div>
+                    <div class="service-card" onclick="showPage('business')">
+                        <div class="service-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>خدمات الأعمال</h3>
+                        <p>حلول متكاملة لإدارة وتطوير الأعمال، الاستشارات الإدارية، والتخطيط الاستراتيجي للشركات</p>
+                    </div>
+                    <div class="service-card" onclick="showPage('projects')">
+                        <div class="service-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>المشاريع الجاهزة</h3>
+                        <p>مشاريع جاهزة للشراء والاستثمار والإدارة، مدروسة بعناية لتكون حلولًا متكاملة تلبي احتياجاتكم</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <h3>خدمات إضافية</h3>
+                        <p>مجموعة متنوعة من الخدمات المساندة والحلول المخصصة لتلبية احتياجاتك الخاصة</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>لماذا تختار المرصد المساعد؟</h2>
+                        <p>نحن شركة متخصصة في تقديم خدمات الأعمال المتكاملة، نجمع بين الخبرة العملية والحلول التقنية المتطورة لمساعدة الشركات على تحقيق أهدافها وزيادة كفاءتها التشغيلية.</p>
+                        
+                        <ul class="about-features">
+                            <li><i class="fas fa-check-circle"></i> فريق من الخبراء المتخصصين</li>
+                            <li><i class="fas fa-check-circle"></i> حلول مخصصة لكل عميل</li>
+                            <li><i class="fas fa-check-circle"></i> متابعة مستمرة ودعم شامل</li>
+                            <li><i class="fas fa-check-circle"></i> استخدام أحدث التقنيات</li>
+                            <li><i class="fas fa-check-circle"></i> أسعار تنافسية ومرونة في الدفع</li>
+                        </ul>
+                    </div>
+                    <div class="about-visual">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">150+</span>
+                                <div class="stat-label">عميل راضي</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">5+</span>
+                                <div class="stat-label">سنوات خبرة</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">98%</span>
+                                <div class="stat-label">معدل الرضا</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">24/7</span>
+                                <div class="stat-label">دعم مستمر</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="contact-content">
+                    <div class="contact-info" style="width: 100%; text-align: center;">
+                        <div class="contact-item" style="justify-content: center;">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>الهاتف</strong><br>
+                                <span style="direction: ltr; display: inline-block;">+966 56 564 1991</span>
+                            </div>
+                        </div>
+                        <div class="contact-item" style="justify-content: center;">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>العنوان</strong><br>
+                                جدة، برج الشاشة
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 60px; height: 60px; object-fit: contain;">
+                        <div>
+                            <strong>المرصد المساعد لخدمات الأعمال</strong><br>
+                            شريكك في النجاح
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div style="border-top: 1px solid #f899bb; margin-top: 1rem; padding-top: 1rem;">
+                    <p>&copy; 2025 المرصد المساعد لخدمات الأعمال. جميع الحقوق محفوظة.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Business Services Page -->
+    <div id="business-page" class="page hidden">
+        <section class="subpage">
+            <div class="container">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('main')">
+                        <i class="fas fa-arrow-right"></i> العودة للرئيسية
+                    </button>
+                    <div style="margin-top: 4rem;">
+                        <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 200px; height: auto; margin: 0 auto 2rem; display: block;">
+                        <h1 style="font-size: 3rem; color: #c4282a; margin-bottom: 1rem;">خدمات الأعمال</h1>
+                        <p style="font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto;">نقدم مجموعة شاملة من الخدمات المتخصصة لتطوير ونمو أعمالك</p>
+                    </div>
+                </div>
+                
+                <div class="subpage-grid">
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3>خدمة التشغيل والتطوير</h3>
+                        </div>
+                        <ul class="subpage-list">
+                            <li><i class="fas fa-check-circle"></i>تطوير العمليات التشغيلية</li>
+                            <li><i class="fas fa-check-circle"></i>تحسين الكفاءة والإنتاجية</li>
+                            <li><i class="fas fa-check-circle"></i>إدارة المشاريع المتخصصة</li>
+                            <li><i class="fas fa-check-circle"></i>تطوير الأنظمة والإجراءات</li>
+                            <li><i class="fas fa-check-circle"></i>استشارات التطوير التنظيمي</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3>خدمة التدريب</h3>
+                        </div>
+                        <ul class="subpage-list">
+                            <li><i class="fas fa-check-circle"></i>برامج تدريبية متخصصة</li>
+                            <li><i class="fas fa-check-circle"></i>تطوير المهارات المهنية</li>
+                            <li><i class="fas fa-check-circle"></i>ورش عمل تفاعلية</li>
+                            <li><i class="fas fa-check-circle"></i>شهادات معتمدة ومتخصصة</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h3>خدمة التسويق</h3>
+                        </div>
+                        <ul class="subpage-list">
+                            <li><i class="fas fa-check-circle"></i>استراتيجيات التسويق الرقمي</li>
+                            <li><i class="fas fa-check-circle"></i>إدارة وسائل التواصل الاجتماعي</li>
+                            <li><i class="fas fa-check-circle"></i>تصميم الحملات الإعلانية</li>
+                            <li><i class="fas fa-check-circle"></i>تحليل السوق والمنافسين</li>
+                            <li><i class="fas fa-check-circle"></i>بناء الهوية التجارية</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 4rem;">
+                    <button class="cta-button" onclick="showPage('main'); setTimeout(() => scrollToSection('contact'), 200);">احصل على استشارة مجانية</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Ready Projects Page -->
+    <div id="projects-page" class="page hidden">
+        <section class="subpage">
+            <div class="container">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('main')">
+                        <i class="fas fa-arrow-right"></i> العودة للرئيسية
+                    </button>
+                    <div style="margin-top: 4rem;">
+                        <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 200px; height: auto; margin: 0 auto 2rem; display: block;">
+                        <h1 style="font-size: 3rem; color: #c4282a; margin-bottom: 1rem;">المشاريع الجاهزة</h1>
+                        <p style="font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                            في <strong style="color: #c4282a;">RSG</strong> نوفر لكم قسمًا متخصصًا يقدّم <strong>مشاريع جاهزة للشراء، الاستثمار، والإدارة</strong>. 
+                            تم تصميم هذه المشاريع بعناية لتكون <strong>حلولًا متكاملة</strong> تلبي احتياجاتكم دون عناء البدء من الصفر.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="subpage-grid">
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>جاهزية كاملة</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="color: #555; line-height: 1.8; margin-bottom: 1.5rem;">مشاريع مدروسة من جميع الجوانب تشمل:</p>
+                            <ul class="subpage-list">
+                                <li><i class="fas fa-star"></i>التخطيط الشامل والدقيق</li>
+                                <li><i class="fas fa-star"></i>التصميم الاحترافي</li>
+                                <li><i class="fas fa-star"></i>التنفيذ المتكامل</li>
+                                <li><i class="fas fa-star"></i>الدراسات المالية والفنية</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h3>تنوع الخيارات</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="color: #555; line-height: 1.8; margin-bottom: 1.5rem;">مجموعة واسعة من القطاعات والفرص الاستثمارية:</p>
+                            <ul class="subpage-list">
+                                <li><i class="fas fa-star"></i>مشاريع تجارية متنوعة</li>
+                                <li><i class="fas fa-star"></i>مشاريع خدمية مبتكرة</li>
+                                <li><i class="fas fa-star"></i>مشاريع صناعية متطورة</li>
+                                <li><i class="fas fa-star"></i>مشاريع تقنية حديثة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>إدارة احترافية</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="color: #555; line-height: 1.8; margin-bottom: 2rem;">إمكانية تسليم المشروع مع خدمة الإدارة والتشغيل الكامل:</p>
+                            <ul class="subpage-list">
+                                <li><i class="fas fa-star"></i>إدارة العمليات اليومية</li>
+                                <li><i class="fas fa-star"></i>إدارة الموارد البشرية</li>
+                                <li><i class="fas fa-star"></i>التسويق والمبيعات</li>
+                                <li><i class="fas fa-star"></i>المتابعة والتطوير المستمر</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Page management
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show the requested page
+            if (pageId === 'main') {
+                document.getElementById('main-page').classList.remove('hidden');
+            } else if (pageId === 'business') {
+                document.getElementById('business-page').classList.remove('hidden');
+            } else if (pageId === 'projects') {
+                document.getElementById('projects-page').classList.remove('hidden');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Scroll to section (only works on main page)
+        function scrollToSection(sectionId) {
+            // First ensure we're on the main page
+            showPage('main');
+            
+            // Then scroll to the section after a short delay
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }, 100);
+        }
+
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.querySelector('#mobileMenuBtn i');
+            
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                menu.classList.add('active');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.querySelector('#mobileMenuBtn i');
+            
+            menu.classList.remove('active');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('شكراً لك! تم إرسال رسالتك بنجاح وسنتواصل معك قريباً.');
+            this.reset();
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.service-card, .stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
