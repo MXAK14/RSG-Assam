@@ -16,66 +16,201 @@
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333;
-            background: #e7e8eb;
+            background: #ffffff;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
         }
 
-        /* Header */
-        header {
-            background: #c4282a;
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 8px 32px rgba(196, 40, 42, 0.3);
+        /* Compact Circular Menu */
+        .circular-menu {
             position: fixed;
-            width: 100%;
-            top: 0;
+            top: 15px;
+            right: 15px;
             z-index: 1000;
+            width: 50px;
+            height: 50px;
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
+        .menu-toggle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c4282a, #f899bb);
+            border: none;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(196, 40, 42, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .nav-links a:hover {
+        .menu-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(196, 40, 42, 0.6);
+        }
+
+        .menu-toggle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover::before {
+            width: 60px;
+            height: 60px;
+        }
+
+        .menu-items {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(-10px);
+        }
+
+        .circular-menu.active .menu-items {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(10px);
+        }
+
+        .menu-item {
+            display: block;
+            width: auto;
+            min-width: 80px;
+            height: 35px;
+            border-radius: 20px;
+            background: #c4282a;
+            border: none;
+            color: white;
+            font-size: 0.75rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(196, 40, 42, 0.3);
+            margin-bottom: 8px;
+            position: relative;
+            transform: translateX(80px);
+            padding: 0 12px;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
             background: #f899bb;
             color: #c4282a;
+            transform: translateX(80px) scale(1.02);
+        }
+
+        .menu-item.has-submenu::after {
+            content: '▼';
+            margin-left: 5px;
+            font-size: 0.6rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item.has-submenu.active::after {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            opacity: 0;
+            visibility: hidden;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+            padding-right: 10px;
+        }
+
+        .submenu.active {
+            opacity: 1;
+            visibility: visible;
+            max-height: 200px;
+        }
+
+        .submenu-item {
+            display: block;
+            width: auto;
+            min-width: 120px;
+            height: 30px;
+            border-radius: 15px;
+            background: rgba(196, 40, 42, 0.8);
+            border: none;
+            color: white;
+            font-size: 0.65rem;
+            cursor: pointer;
+            margin-bottom: 5px;
+            padding: 0 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(196, 40, 42, 0.2);
+            font-weight: 400;
+        }
+
+        .submenu-item:hover {
+            background: #f899bb;
+            color: #c4282a;
+            transform: scale(1.02);
+        }
+
+        .menu-item i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .circular-menu.active .menu-item:nth-child(1) {
+            animation: slideInRight 0.3s ease forwards;
+            animation-delay: 0.1s;
+        }
+
+        .circular-menu.active .menu-item:nth-child(2) {
+            animation: slideInRight 0.3s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(80px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .circular-menu:not(.active) .menu-item {
+            transform: translateX(80px);
+            opacity: 0;
         }
 
         /* Page Container */
         .page {
             display: block;
+            padding-top: 20px;
         }
 
         .page.hidden {
@@ -84,23 +219,31 @@
 
         /* Hero Section */
         .hero {
-            background: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             color: #333;
-            padding: 120px 0 40px;
+            padding: 40px 0 120px;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 4.5rem;
+            margin-bottom: 2rem;
             font-weight: bold;
             color: #c4282a;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            margin-bottom: 4rem;
             color: #666;
+        }
+
+        .hero img {
+            width: 400px !important;
+            height: auto;
+            object-fit: contain;
+            margin: 4rem auto 8rem;
+            display: block;
         }
 
         .cta-button {
@@ -127,7 +270,7 @@
         /* Services Section */
         .services {
             padding: 40px 0 80px;
-            background: #e7e8eb;
+            background: #f8f9fa;
         }
 
         .section-title {
@@ -136,29 +279,29 @@
         }
 
         .section-title h2 {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             color: #c4282a;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .section-title p {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             color: #666;
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
         }
 
         .service-card {
             background: #ffffff;
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 3rem;
+            border-radius: 25px;
             text-align: center;
             box-shadow: 0 8px 32px rgba(196, 40, 42, 0.15);
             transition: all 0.3s ease;
@@ -173,33 +316,34 @@
         }
 
         .service-icon {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background: #c4282a;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
             color: white;
             box-shadow: 0 8px 25px rgba(196, 40, 42, 0.4);
         }
 
         .service-card h3 {
             color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
         }
 
         .service-card p {
             color: #5a6c7d;
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 1.1rem;
         }
 
         /* About Section */
         .about {
-            padding: 80px 0;
+            padding: 100px 0;
             background: #ffffff;
         }
 
@@ -212,15 +356,15 @@
 
         .about-text h2 {
             color: #c4282a;
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
+            font-size: 3rem;
+            margin-bottom: 2rem;
         }
 
         .about-text p {
             color: #666;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             line-height: 1.8;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .about-features {
@@ -230,10 +374,11 @@
         .about-features li {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
+            gap: 15px;
+            margin-bottom: 1.5rem;
             color: #5a6c7d;
             font-weight: 500;
+            font-size: 1.1rem;
         }
 
         .about-features i {
@@ -249,8 +394,8 @@
 
         .stat-card {
             background: #ffffff;
-            padding: 2rem;
-            border-radius: 15px;
+            padding: 2.5rem;
+            border-radius: 20px;
             text-align: center;
             box-shadow: 0 8px 32px rgba(196, 40, 42, 0.15);
             border: 1px solid #f899bb;
@@ -263,7 +408,7 @@
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             font-weight: bold;
             color: #c4282a;
             display: block;
@@ -271,109 +416,62 @@
 
         .stat-label {
             color: #5a6c7d;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            margin-top: 0.8rem;
         }
 
         /* Contact Section */
         .contact {
-            padding: 80px 0;
+            padding: 8px 0;
             background: #c4282a;
             color: white;
         }
 
         .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             gap: 3rem;
         }
 
         .contact-info h2 {
-            margin-bottom: 2rem;
-            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            font-size: 3rem;
             color: #f899bb;
         }
 
         .contact-info p {
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 1.5rem;
+            gap: 6px;
+            margin-bottom: 0.5rem;
+            justify-content: center;
         }
 
         .contact-item i {
-            width: 40px;
-            height: 40px;
+            width: 18px;
+            height: 18px;
             background: #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 0.6rem;
             color: #c4282a;
         }
 
-        .contact-form {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(248, 153, 187, 0.2);
+        .contact-item div {
+            font-size: 0.65rem;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            font-size: 1rem;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #f899bb;
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .form-group textarea {
-            height: 120px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: #ffffff;
-            color: #c4282a;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background: #f899bb;
-            transform: translateY(-2px) scale(1.02);
+        .contact-item strong {
+            font-size: 0.7rem;
         }
 
         /* Footer */
@@ -392,47 +490,32 @@
             margin-bottom: 1rem;
         }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: #f899bb;
-            transform: translateY(-2px) scale(1.1);
-        }
-
         /* Subpages */
         .subpage {
-            padding: 80px 0;
+            padding: 100px 0;
             background: #ffffff;
             min-height: 100vh;
         }
 
         .page-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
             position: relative;
         }
 
         .back-btn {
             position: absolute;
-            left: 0;
+            right: 0;
             top: 0;
             background: #c4282a;
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 15px 30px;
+            border-radius: 30px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
 
         .back-btn:hover {
@@ -440,16 +523,30 @@
             color: #c4282a;
         }
 
+        .subpage h1 {
+            font-size: 4rem;
+            color: #c4282a;
+            margin-bottom: 1.5rem;
+        }
+
+        .subpage p {
+            font-size: 1.4rem;
+            color: #666;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
         .subpage-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
         }
 
         .subpage-card {
             background: #ffffff;
-            padding: 2.5rem;
-            border-radius: 20px;
+            padding: 3rem;
+            border-radius: 25px;
             box-shadow: 0 12px 35px rgba(196, 40, 42, 0.15);
             border: 2px solid #f899bb;
         }
@@ -460,22 +557,29 @@
         }
 
         .subpage-icon {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background: #c4282a;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
             color: white;
         }
 
         .subpage-card h3 {
             color: #c4282a;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .subpage-card p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
         }
 
         .subpage-list {
@@ -486,9 +590,10 @@
         .subpage-list li {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
+            gap: 15px;
+            margin-bottom: 1.5rem;
             color: #555;
+            font-size: 1.1rem;
         }
 
         .subpage-list i {
@@ -516,66 +621,40 @@
             opacity: 0.9;
         }
 
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .mobile-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: #c4282a;
-            padding: 1rem 0;
-            border: 1px solid #f899bb;
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-menu a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: background 0.3s ease;
-            cursor: pointer;
-        }
-
-        .mobile-menu a:hover {
-            background: #f899bb;
-            color: #c4282a;
-        }
-
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .circular-menu {
+                top: 10px;
+                right: 10px;
+                width: 45px;
+                height: 45px;
             }
 
-            .mobile-menu-btn {
-                display: block;
+            .menu-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 0.9rem;
             }
 
-            nav {
-                position: relative;
+            .menu-item {
+                min-width: 70px;
+                height: 30px;
+                font-size: 0.7rem;
+                padding: 0 8px;
             }
 
-            .logo {
-                font-size: 1.4rem;
+            .submenu-item {
+                min-width: 100px;
+                height: 28px;
+                font-size: 0.6rem;
+                padding: 0 8px;
             }
+
+            .menu-item:nth-child(1) { animation: slideInRight 0.3s ease forwards; animation-delay: 0.1s; }
+            .menu-item:nth-child(2) { animation: slideInRight 0.3s ease forwards; animation-delay: 0.2s; }
 
             .hero {
-                padding: 100px 0 60px;
+                padding: 20px 0 60px;
             }
 
             .hero h1 {
@@ -596,16 +675,6 @@
                 gap: 2rem;
             }
 
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -619,38 +688,58 @@
                 margin-bottom: 2rem;
             }
         }
+
+        /* Menu tooltip */
+        .menu-item::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 50px; height: auto; object-fit: contain;">
-            </div>
-            <ul class="nav-links">
-                <li><a onclick="showPage('main')">الرئيسية</a></li>
-                <li><a onclick="scrollToSection('services')">خدماتنا</a></li>
-                <li><a onclick="scrollToSection('about')">من نحن</a></li>
-                <li><a onclick="scrollToSection('contact')">اتصل بنا</a></li>
-            </ul>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
+    <!-- Compact Circular Menu -->
+    <div class="circular-menu" id="circularMenu">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars" id="menuIcon"></i>
+        </button>
+        <div class="menu-items">
+            <button class="menu-item" onclick="showPage('main')" data-tooltip="الرئيسية">
+                الرئيسية
             </button>
-            <div class="mobile-menu" id="mobileMenu">
-                <a onclick="showPage('main'); closeMobileMenu();">الرئيسية</a>
-                <a onclick="scrollToSection('services'); closeMobileMenu();">خدماتنا</a>
-                <a onclick="scrollToSection('about'); closeMobileMenu();">من نحن</a>
-                <a onclick="scrollToSection('contact'); closeMobileMenu();">اتصل بنا</a>
+            <button class="menu-item has-submenu" onclick="toggleSubmenu()" data-tooltip="خدماتنا">
+                خدماتنا
+            </button>
+            <div class="submenu" id="servicesSubmenu">
+                <button class="submenu-item" onclick="showPage('realestate')">الخدمات العقارية</button>
+                <button class="submenu-item" onclick="showPage('business')">خدمات الأعمال</button>
+                <button class="submenu-item" onclick="showPage('projects')">المشاريع الجاهزة</button>
             </div>
-        </nav>
-    </header>
+        </div>
+    </div>
 
     <!-- Main Page -->
     <div id="main-page" class="page">
         <section class="hero" id="home">
             <div class="container">
                 <div class="hero-content">
-                    <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 300px; height: auto; object-fit: contain; margin: 3rem auto 2rem; display: block;">
+                    <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 400px; height: auto; object-fit: contain; margin: 4rem auto 8rem; display: block;">
                     <p>Your trusted partner in developing and managing business with innovative and specialized solutions</p>
                 </div>
             </div>
@@ -663,7 +752,7 @@
                     <p>نقدم مجموعة شاملة من الخدمات المتخصصة لتلبية احتياجات عملك وتحقيق أهدافك</p>
                 </div>
                 <div class="services-grid">
-                    <div class="service-card">
+                    <div class="service-card" onclick="showPage('realestate')">
                         <div class="service-icon">
                             <i class="fas fa-building"></i>
                         </div>
@@ -683,13 +772,6 @@
                         </div>
                         <h3>المشاريع الجاهزة</h3>
                         <p>مشاريع جاهزة للشراء والاستثمار والإدارة، مدروسة بعناية لتكون حلولًا متكاملة تلبي احتياجاتكم</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-cog"></i>
-                        </div>
-                        <h3>خدمات إضافية</h3>
-                        <p>مجموعة متنوعة من الخدمات المساندة والحلول المخصصة لتلبية احتياجاتك الخاصة</p>
                     </div>
                 </div>
             </div>
@@ -738,20 +820,9 @@
             <div class="container">
                 <div class="contact-content">
                     <div class="contact-info" style="width: 100%; text-align: center;">
-                        <div class="contact-item" style="justify-content: center;">
+                        <a href="tel:+966565641991" class="cta-button">
                             <i class="fas fa-phone"></i>
-                            <div>
-                                <strong>الهاتف</strong><br>
-                                <span style="direction: ltr; display: inline-block;">+966 56 564 1991</span>
-                            </div>
-                        </div>
-                        <div class="contact-item" style="justify-content: center;">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <strong>العنوان</strong><br>
-                                جدة، برج الشاشة
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -759,26 +830,122 @@
 
         <footer>
             <div class="container">
-                <div class="footer-content">
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 60px; height: 60px; object-fit: contain;">
-                        <div>
-                            <strong>المرصد المساعد لخدمات الأعمال</strong><br>
-                            شريكك في النجاح
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div style="border-top: 1px solid #f899bb; margin-top: 1rem; padding-top: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
                     <p>&copy; 2025 المرصد المساعد لخدمات الأعمال. جميع الحقوق محفوظة.</p>
+                    <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 60px; height: 60px; object-fit: contain;">
                 </div>
             </div>
         </footer>
+    </div>
+
+    <!-- Real Estate Services Page -->
+    <div id="realestate-page" class="page hidden">
+        <section class="subpage">
+            <div class="container">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('main')">
+                        العودة للرئيسية
+                    </button>
+                    <div style="margin-top: 4rem;">
+                        <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 200px; height: auto; margin: 0 auto 2rem; display: block;">
+                        <h1 style="font-size: 4rem; color: #c4282a; margin-bottom: 1.5rem;">خدماتنا العقارية</h1>
+                        <p style="font-size: 1.4rem; color: #666; max-width: 900px; margin: 0 auto; line-height: 1.8;">
+                            نقدم مجموعة شاملة ومتكاملة من الخدمات العقارية المتخصصة لتلبية جميع احتياجاتكم في السوق العقاري
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="subpage-grid">
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h3>التأجير العقاري</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <ul class="subpage-list">
+                                <li><i class="fas fa-star"></i>تأجير المكاتب التجارية والمعارض</li>
+                                <li><i class="fas fa-star"></i>عقود تأجير إلكترونية معتمدة عبر منصة إيجار</li>
+                                <li><i class="fas fa-star"></i>حلول مرنة تناسب الأفراد والشركات</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>الاستثمار العقاري</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <ul class="subpage-list">
+                                <li><i class="fas fa-star"></i>فرص استثمارية مميزة في المشاريع السكنية والتجارية</li>
+                                <li><i class="fas fa-star"></i>إدارة وتطوير العقارات لتحقيق عوائد مستمرة</li>
+                                <li><i class="fas fa-star"></i>دراسات جدوى واستشارات استثمارية</li>
+                                <li><i class="fas fa-star"></i>شراكات استراتيجية مع المستثمرين والأفراد</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <h3>إدارة الأملاك</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <ul class="subpage-list">
+                                <li><i class="fas fa-star"></i>متابعة التحصيل والإيجارات</li>
+                                <li><i class="fas fa-star"></i>صيانة وتشغيل المباني</li>
+                                <li><i class="fas fa-star"></i>إدارة شؤون المستأجرين والعقود</li>
+                                <li><i class="fas fa-star"></i>تقارير دورية للمالك والمستثمر</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="subpage-card">
+                        <div class="subpage-card-header">
+                            <div class="subpage-icon">
+                                <i class="fas fa-hammer"></i>
+                            </div>
+                            <h3>التطوير العقاري</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <ul class="subpage-list">
+                                <li><i class="fas fa-star"></i>تسويق المشاريع العقارية باحترافية</li>
+                                <li><i class="fas fa-star"></i>تصميم وإدارة المشاريع السكنية والتجارية</li>
+                                <li><i class="fas fa-star"></i>حلول تمويلية بالتعاون مع البنوك والممولين</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-section">
+                    <h3>لماذا تختارنا؟</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                        <div style="text-align: right;">
+                            <ul style="list-style: none;">
+                                <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; color: white; font-size: 1.1rem;"><i class="fas fa-check-circle" style="color: #fff;"></i>خبرة واسعة في السوق العقاري المحلي</li>
+                                <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; color: white; font-size: 1.1rem;"><i class="fas fa-check-circle" style="color: #fff;"></i>التزام بالشفافية والمصداقية في جميع تعاملاتنا</li>
+                            </ul>
+                        </div>
+                        <div style="text-align: right;">
+                            <ul style="list-style: none;">
+                                <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; color: white; font-size: 1.1rem;"><i class="fas fa-check-circle" style="color: #fff;"></i>فريق متخصص يجمع بين الكفاءة والابتكار</li>
+                                <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; color: white; font-size: 1.1rem;"><i class="fas fa-check-circle" style="color: #fff;"></i>حلول متكاملة تبدأ من البحث وتنتهي بالعقد والتشغيل</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 4rem;">
+                    <a href="https://wa.me/966504761352" target="_blank" class="cta-button"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </section>
     </div>
 
     <!-- Business Services Page -->
@@ -787,12 +954,12 @@
             <div class="container">
                 <div class="page-header">
                     <button class="back-btn" onclick="showPage('main')">
-                        <i class="fas fa-arrow-right"></i> العودة للرئيسية
+                        العودة للرئيسية
                     </button>
                     <div style="margin-top: 4rem;">
                         <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 200px; height: auto; margin: 0 auto 2rem; display: block;">
-                        <h1 style="font-size: 3rem; color: #c4282a; margin-bottom: 1rem;">خدمات الأعمال</h1>
-                        <p style="font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto;">نقدم مجموعة شاملة من الخدمات المتخصصة لتطوير ونمو أعمالك</p>
+                        <h1 style="font-size: 4rem; color: #c4282a; margin-bottom: 1.5rem;">خدمات الأعمال</h1>
+                        <p style="font-size: 1.4rem; color: #666; max-width: 600px; margin: 0 auto;">نقدم مجموعة شاملة من الخدمات المتخصصة لتطوير ونمو أعمالك</p>
                     </div>
                 </div>
                 
@@ -846,7 +1013,7 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 4rem;">
-                    <button class="cta-button" onclick="showPage('main'); setTimeout(() => scrollToSection('contact'), 200);">احصل على استشارة مجانية</button>
+                    <a href="https://wa.me/966504761352" target="_blank" class="cta-button"><i class="fas fa-phone"></i></a>
                 </div>
             </div>
         </section>
@@ -858,14 +1025,14 @@
             <div class="container">
                 <div class="page-header">
                     <button class="back-btn" onclick="showPage('main')">
-                        <i class="fas fa-arrow-right"></i> العودة للرئيسية
+                        العودة للرئيسية
                     </button>
                     <div style="margin-top: 4rem;">
                         <img src="https://i.imgur.com/aXSR1rf.png" alt="شعار المرصد المساعد" style="width: 200px; height: auto; margin: 0 auto 2rem; display: block;">
-                        <h1 style="font-size: 3rem; color: #c4282a; margin-bottom: 1rem;">المشاريع الجاهزة</h1>
-                        <p style="font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto; line-height: 1.8;">
-                            في <strong style="color: #c4282a;">RSG</strong> نوفر لكم قسمًا متخصصًا يقدّم <strong>مشاريع جاهزة للشراء، الاستثمار، والإدارة</strong>. 
-                            تم تصميم هذه المشاريع بعناية لتكون <strong>حلولًا متكاملة</strong> تلبي احتياجاتكم دون عناء البدء من الصفر.
+                        <h1 style="font-size: 4rem; color: #c4282a; margin-bottom: 1.5rem;">المشاريع الجاهزة</h1>
+                        <p style="font-size: 1.4rem; color: #666; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                            في <strong style="color: #c4282a;">RSG</strong> نوفّر لكم قسمًا متخصصًا يقدِّم <strong>مشاريع جاهزة للشراء، الاستثمار، والإدارة</strong>. 
+                            تمّ تصميم هذه المشاريع بعناية لتكون <strong>حلولًا متكاملة</strong> تلبي احتياجاتكم دون عناء البدء من الصفر.
                         </p>
                     </div>
                 </div>
@@ -925,11 +1092,61 @@
                         </div>
                     </div>
                 </div>
+                
+                <div style="text-align: center; margin-top: 4rem;">
+                    <a href="https://wa.me/966504761352" target="_blank" class="cta-button"><i class="fas fa-phone"></i></a>
+                </div>
             </div>
         </section>
     </div>
 
     <script>
+        // Circular menu functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const circularMenu = document.getElementById('circularMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            circularMenu.classList.toggle('active');
+            
+            if (circularMenu.classList.contains('active')) {
+                menuIcon.style.display = 'none';
+            } else {
+                menuIcon.style.display = 'block';
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!circularMenu.contains(e.target)) {
+                circularMenu.classList.remove('active');
+                menuIcon.style.display = 'block';
+            }
+        });
+
+        // Submenu functionality
+        function toggleSubmenu() {
+            const submenu = document.getElementById('servicesSubmenu');
+            const menuItem = document.querySelector('.has-submenu');
+            
+            submenu.classList.toggle('active');
+            menuItem.classList.toggle('active');
+        }
+
+        // Close submenu when clicking outside
+        document.addEventListener('click', function(e) {
+            const submenu = document.getElementById('servicesSubmenu');
+            const menuItem = document.querySelector('.has-submenu');
+            
+            if (!circularMenu.contains(e.target)) {
+                circularMenu.classList.remove('active');
+                menuIcon.style.display = 'block';
+                submenu.classList.remove('active');
+                menuItem.classList.remove('active');
+            }
+        });
+
         // Page management
         function showPage(pageId) {
             // Hide all pages
@@ -944,7 +1161,15 @@
                 document.getElementById('business-page').classList.remove('hidden');
             } else if (pageId === 'projects') {
                 document.getElementById('projects-page').classList.remove('hidden');
+            } else if (pageId === 'realestate') {
+                document.getElementById('realestate-page').classList.remove('hidden');
             }
+            
+            // Close the menu and submenu
+            circularMenu.classList.remove('active');
+            menuIcon.style.display = 'block';
+            document.getElementById('servicesSubmenu').classList.remove('active');
+            document.querySelector('.has-submenu').classList.remove('active');
             
             // Scroll to top
             window.scrollTo(0, 0);
@@ -965,38 +1190,6 @@
                 }
             }, 100);
         }
-
-        // Mobile menu functions
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const icon = document.querySelector('#mobileMenuBtn i');
-            
-            if (menu.classList.contains('active')) {
-                menu.classList.remove('active');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            } else {
-                menu.classList.add('active');
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            }
-        }
-
-        function closeMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const icon = document.querySelector('#mobileMenuBtn i');
-            
-            menu.classList.remove('active');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
-
-        // Form submission
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('شكراً لك! تم إرسال رسالتك بنجاح وسنتواصل معك قريباً.');
-            this.reset();
-        });
 
         // Animation on scroll
         const observerOptions = {
@@ -1020,6 +1213,16 @@
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
+
+        // Add smooth scroll behavior to all links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add entrance animation to menu
+            setTimeout(() => {
+                circularMenu.style.opacity = '1';
+                circularMenu.style.transform = 'scale(1)';
+            }, 500);
+        });
     </script>
 </body>
 </html>
+                
